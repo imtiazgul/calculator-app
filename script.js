@@ -46,23 +46,4 @@ function addDecimal() {
     display.value += '.';
   }
 }
-// Keyboard support
-document.addEventListener('keydown', (e) => {
-  const key = e.key;
-  
-  // Numbers and decimal
-  if (/[0-9.]/.test(key)) {
-    append(key);
-  }
-  
-  // Operators
-  if (['+', '-', '*', '/'].includes(key)) {
-    append(key === '*' ? '×' : key === '/' ? '÷' : key);
-  }
-  
-  // Enter = equals
-  if (key === 'Enter') calculate();
-  
-  // Escape = clear
-  if (key === 'Escape') clearDisplay();
-});
+
