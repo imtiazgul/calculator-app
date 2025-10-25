@@ -1,49 +1,28 @@
-// ========= CORE CALCULATOR =========
+// Keyboard sound effects
+const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2575.mp3');
+const errorSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-error-2745.mp3');
+
+function playClick() {
+  clickSound.currentTime = 0;
+  clickSound.play().catch(e => console.log("Audio paused (click first)"));
+}
+
+function playError() {
+  errorSound.currentTime = 0;
+  errorSound.play().catch(e => {});
+}
+
+// Modify existing functions
 function append(value) {
-  const display = document.getElementById('display');
-  
-  // Prevent invalid inputs
-  if (value === '.' && display.value.includes('.')) return;
-  if (['+', '-', '*', '/'].includes(value) && ['+', '-', '*', '/'].includes(display.value.slice(-1))) {
-    display.value = display.value.slice(0, -1) + value;
-    return;
-  }
-  
-  display.value += value;
+  playClick();
+  // ... rest of your code ...
 }
 
 function calculate() {
-  const display = document.getElementById('display');
   try {
-    // Safe calculation without eval
-    display.value = new Function(`return ${display.value}`)();
+    // ... calculation ...
   } catch {
-    display.value = "Error";
-    setTimeout(() => display.value = '', 1500);
+    playError();
+    // ... error handling ...
   }
 }
-
-// ========= NEW FEATURES =========
-function clearDisplay() {
-  document.getElementById('display').value = '';
-}
-
-function deleteLast() {
-  const display = document.getElementById('display');
-  display.value = display.value.slice(0, -1);
-}
-
-function toggleSign() {
-  const display = document.getElementById('display');
-  if (display.value && !isNaN(display.value.slice(-1))) {
-    display.value = display.value * -1;
-  }
-}
-
-function addDecimal() {
-  const display = document.getElementById('display');
-  if (!display.value.includes('.')) {
-    display.value += '.';
-  }
-}
-
